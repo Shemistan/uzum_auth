@@ -6,7 +6,7 @@ lint:
 	golangci-lint run
 
 #Установить protoc
-# brew install protoc
+# brew install protobuf
 
 BIN:=$(CURDIR)/bin
 
