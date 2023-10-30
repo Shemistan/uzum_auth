@@ -6,8 +6,8 @@ func Initialize() redoc.Redoc {
 	doc := redoc.Redoc{
 		Title:       "Documentation of AuthSystem",
 		Description: "Documentation describes working procedures of AuthSystem like structs, handlers, etc.",
-		SpecFile:    "./docs/api.swagger.json",
-		SpecPath:    "/docs/api.swagger.json",
+		SpecFile:    "./docs/api_auth_v1.swagger.json",
+		SpecPath:    "/docs/api_auth_v1.swagger.json",
 		DocsPath:    "/docs",
 	}
 

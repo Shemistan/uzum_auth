@@ -6,9 +6,17 @@ type Config struct {
 }
 
 type APP struct {
-	PortGRPC string `envconfig:"PORT_GRPC"`
-	PortHTTP string `envconfig:"PORT_HTTP"`
-	PortDocs string `envconfig:"PORT_DOCS"`
+	PortAuthGRPC   string `envconfig:"PORT_GRPC_AUTH"`
+	PortLoginGRPC  string `envconfig:"PORT_GRPC_LOGIN"`
+	PortAccessGRPC string `envconfig:"PORT_GRPC_ACCESS"`
+	PortAuthHTTP   string `envconfig:"PORT_HTTP_AUTH"`
+	PortDocs       string `envconfig:"PORT_DOCS"`
+
+	AccessSecret          string `envconfig:"ACCESS_SECRET"`
+	RefreshSecret         string `envconfig:"REFRESH_SECRET"`
+	AccessTTL             string `envconfig:"ACCESS_TTL_MINUTE"`
+	RefreshTTL            string `envconfig:"REFRESH_TTL_MINUTE"`
+	KeyForHashingPassword string `envconfig:"KEY_FOR_HASHING_PASSWORD"`
 }
 
 type Postgres struct {

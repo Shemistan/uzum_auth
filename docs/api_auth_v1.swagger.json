@@ -16,38 +16,6 @@
     "application/json"
   ],
   "paths": {
-    "/auth_v1/auth": {
-      "post": {
-        "operationId": "AuthV1_Auth",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/auth_v1AuthResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/auth_v1AuthRequest"
-            }
-          }
-        ],
-        "tags": [
-          "AuthV1"
-        ]
-      }
-    },
     "/auth_v1/create": {
       "post": {
         "operationId": "AuthV1_Create",
@@ -138,7 +106,7 @@
     }
   },
   "definitions": {
-    "auth_v1AuthRequest": {
+    "auth_v1AuthUser": {
       "type": "object",
       "properties": {
         "login": {
@@ -146,35 +114,35 @@
         },
         "password": {
           "type": "string"
-        },
-        "refreshToken": {
-          "type": "string"
         }
       }
     },
-    "auth_v1AuthResponse": {
+    "auth_v1Coordinate": {
       "type": "object",
       "properties": {
-        "access_token": {
-          "type": "string"
+        "x": {
+          "type": "number",
+          "format": "float"
+        },
+        "y": {
+          "type": "number",
+          "format": "float"
         }
       }
     },
     "auth_v1CreateRequest": {
       "type": "object",
       "properties": {
+        "loginPassword": {
+          "$ref": "#/definitions/auth_v1AuthUser"
+        },
         "user": {
           "$ref": "#/definitions/auth_v1User"
         }
       }
     },
     "auth_v1CreateResponse": {
-      "type": "object",
-      "properties": {
-        "access_token": {
-          "type": "string"
-        }
-      }
+      "type": "object"
     },
     "auth_v1GetAllUsersResponse": {
       "type": "object",
@@ -219,18 +187,27 @@
     "auth_v1User": {
       "type": "object",
       "properties": {
-        "login": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
+        "id": {
+          "type": "string",
+          "format": "uint64"
         },
         "role": {
           "type": "string"
         },
-        "date_of_birt": {
-          "type": "string",
-          "format": "date-time"
+        "name": {
+          "type": "string"
+        },
+        "surname": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "coordinateAddress": {
+          "$ref": "#/definitions/auth_v1Coordinate"
         }
       }
     },

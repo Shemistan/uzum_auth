@@ -1,7 +1,7 @@
 package auth_v1
 
 import (
-	auth_system "github.com/Shemistan/uzum_auth/internal/service/auth"
+	auth_system "github.com/Shemistan/uzum_auth/internal/service/auth_v1"
 	pb "github.com/Shemistan/uzum_auth/pkg/auth_v1"
 )
 

@@ -2,10 +2,11 @@ syntax = "proto3";
 
 package auth_v1;
 
-import "google/protobuf/timestamp.proto";
+//import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
-import "google/protobuf/wrappers.proto";
+//import "google/protobuf/wrappers.proto";
 import "google/api/annotations.proto";
+import "google/api/validate.proto";
 
 option go_package = "github.com/Shemistan/uzum_auth/pkg/auth_v1;auth_v1";
 
@@ -14,8 +15,6 @@ service AuthV1 {
   rpc GetUsers(GetUsers.Request) returns (GetUsers.Response);
   rpc GetAllUsers(google.protobuf.Empty) returns (GetAllUsers.Response);
   rpc Delete(Delete.Request) returns (google.protobuf.Empty);
-  rpc CheckToken(CheckToken.Request) returns (google.protobuf.Empty);
-
 
   rpc Create(Create.Request) returns (Create.Response){
     option (google.api.http) = {
@@ -31,13 +30,6 @@ service AuthV1 {
     };
   }
 
-  rpc Auth(Auth.Request) returns (Auth.Response){
-    option (google.api.http) = {
-      post: "/auth_v1/auth"
-      body: "*"
-    };
-  }
-
   rpc Healthz(google.protobuf.Empty) returns (google.protobuf.Empty){
     option (google.api.http) = {
       get: "/auth_v1/healthz"
@@ -47,28 +39,15 @@ service AuthV1 {
 
 }
 
-message Auth {
-  message Request{
-    google.protobuf.StringValue login = 1;
-    google.protobuf.StringValue password = 2;
-    google.protobuf.StringValue refresh_token = 3;
-  }
-
-
-  message Response{
-    string access_token = 1 [json_name = "access_token"];
-  }
-}
-
 
 message Create {
   message Request{
-    User user = 1;
+    AuthUser login_password = 1;
+    User user = 2;
   }
 
 
   message Response{
-    string access_token = 1 [json_name = "access_token"];
   }
 }
 
@@ -116,15 +95,22 @@ message GetAllUsers {
   }
 }
 
-message CheckToken {
-  message Request{
-    string access_token = 1 [json_name = "access_token"];
-  }
+message AuthUser {
+  string login = 1 [(validate.rules).string.email = true];
+  string password = 2 [(validate.rules).string = {min_len: 4, max_len: 40}];
 }
 
 message User {
-  string login = 1;
-  string password = 2;
+  uint64 id = 1;
   string role = 3;
-  google.protobuf.Timestamp date_of_birt = 4  [json_name = "date_of_birt"];
+  string name = 4;
+  string surname = 5;
+  string phone = 6;
+  string address = 7;
+  Coordinate coordinate_address = 8;
+}
+
+message Coordinate {
+  float x = 1;
+  float y = 2;
 }

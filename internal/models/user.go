@@ -1,10 +1,38 @@
 package models
 
-import "time"
+import "github.com/golang-jwt/jwt"
+
+type CreateUser struct {
+	AuthUser
+	User
+}
 
 type User struct {
-	Login      string
-	Password   string
-	Role       string
-	DateOfBirt time.Time
+	Role              string
+	Name              string
+	Surname           string
+	Phone             string
+	Address           string
+	AddressCoordinate Coordinate
+}
+
+type AuthUser struct {
+	Login    string
+	Password string
+}
+
+type Coordinate struct {
+	X float32
+	Y float32
+}
+
+type UserInfo struct {
+	Login string
+	Role  string
+}
+
+type CustomClaims struct {
+	jwt.StandardClaims
+	Login string `json:"username"`
+	Role  string `json:"role"`
 }
