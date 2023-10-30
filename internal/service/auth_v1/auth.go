@@ -5,6 +5,7 @@ import (
 	"github.com/Shemistan/uzum_auth/internal/models"
 	repo "github.com/Shemistan/uzum_auth/internal/storage"
 	"github.com/Shemistan/uzum_auth/internal/utils/hasher"
+	"log"
 )
 
 type IAuthSystemService interface {
@@ -45,35 +46,43 @@ func (a *authSystemService) CreateUser(ctx context.Context, user *models.CreateU
 
 func (a *authSystemService) MultiCreateUser(ctx context.Context, users []*models.CreateUser) (int64, error) {
 	//TODO implement me
-	panic("implement me")
+	log.Println("Реализуй меня")
+	return 0, nil
 }
 
 func (a *authSystemService) UpdateUser(ctx context.Context, user *models.User, login string) error {
 	//TODO implement me
-	panic("implement me")
+	log.Println("Реализуй меня")
+
+	return nil
 }
 
 func (a *authSystemService) DeleteUser(ctx context.Context, login string) error {
 	//TODO implement me
-	panic("implement me")
+	log.Println("Реализуй меня")
+	return nil
 }
 
 func (a *authSystemService) ChangePassword(ctx context.Context, req *models.AuthUser) error {
 	//TODO implement me
-	panic("implement me")
+	log.Println("Реализуй меня")
+	return nil
 }
 
 func (a *authSystemService) GetUser(ctx context.Context, login string) (*models.User, error) {
 	//TODO implement me
-	panic("implement me")
+	log.Println("Реализуй меня")
+	return &models.User{}, nil
 }
 
 func (a *authSystemService) GetUsers(ctx context.Context, logins []string) ([]*models.User, error) {
 	//TODO implement me
-	panic("implement me")
+	log.Println("Реализуй меня")
+	return nil, nil
 }
 
 func (a *authSystemService) GetAllUsers(ctx context.Context) ([]*models.User, error) {
 	//TODO implement me
-	panic("implement me")
+	log.Println("Реализуй меня")
+	return nil, nil
 }
