@@ -46,5 +46,3 @@ gen_login: ## Генерация proto-файлов
 				--validate_out lang=go:pkg/login_v1 --validate_opt=paths=source_relative \
 				--plugin=protoc-gen-validate=bin/protoc-gen-validate \
 				api/login_v1/*.proto
-
-
