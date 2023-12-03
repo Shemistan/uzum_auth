@@ -118,16 +118,16 @@ func (s *storage) ChangePassword(ctx context.Context, req *models.AuthUser) erro
 
 func (s *storage) GetUser(ctx context.Context, login string) (*models.User, error) {
 	var user models.User
-	q := sq.Select("name", "surname", "phone",
-		"role", "address", "coordinate_address_x",
-		"coordinate_address_y").
+	q := sq.Select("id", "name", "surname", "phone",
+		"role", "address", "location_x",
+		"location_y").
 		From(tableName).
 		Where(sq.Eq{"login": login}).
 		RunWith(s.db).
 		PlaceholderFormat(sq.Dollar)
 
 	err := q.QueryRowContext(ctx).
-		Scan(&user.Name, &user.Surname, &user.Phone,
+		Scan(&user.ID, &user.Name, &user.Surname, &user.Phone,
 			&user.Role, &user.Address, &user.AddressCoordinate.X,
 			&user.AddressCoordinate.Y)
 
