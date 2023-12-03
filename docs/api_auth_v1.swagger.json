@@ -23,7 +23,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/auth_v1CreateResponse"
+              "$ref": "#/definitions/CreateResponse"
             }
           },
           "default": {
@@ -39,7 +39,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/auth_v1CreateRequest"
+              "$ref": "#/definitions/CreateRequest"
             }
           }
         ],
@@ -95,7 +95,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/auth_v1UpdateRequest"
+              "$ref": "#/definitions/UpdateRequest"
             }
           }
         ],
@@ -106,18 +106,7 @@
     }
   },
   "definitions": {
-    "auth_v1AuthUser": {
-      "type": "object",
-      "properties": {
-        "login": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        }
-      }
-    },
-    "auth_v1Coordinate": {
+    "Coordinate": {
       "type": "object",
       "properties": {
         "x": {
@@ -130,66 +119,70 @@
         }
       }
     },
-    "auth_v1CreateRequest": {
+    "CreateRequest": {
       "type": "object",
       "properties": {
-        "loginPassword": {
-          "$ref": "#/definitions/auth_v1AuthUser"
-        },
         "user": {
-          "$ref": "#/definitions/auth_v1User"
+          "$ref": "#/definitions/User",
+          "title": "AuthUser login_password = 1;"
         }
       }
     },
-    "auth_v1CreateResponse": {
+    "CreateResponse": {
       "type": "object"
     },
-    "auth_v1GetAllUsersResponse": {
+    "GetAllUsersResponse": {
       "type": "object",
       "properties": {
         "user": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/auth_v1User"
+            "$ref": "#/definitions/User"
           }
         }
       }
     },
-    "auth_v1GetUserResponse": {
+    "GetUserResponse": {
       "type": "object",
       "properties": {
         "user": {
-          "$ref": "#/definitions/auth_v1User"
+          "$ref": "#/definitions/User"
         }
       }
     },
-    "auth_v1GetUsersResponse": {
+    "GetUsersResponse": {
       "type": "object",
       "properties": {
         "user": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/auth_v1User"
+            "$ref": "#/definitions/User"
           }
         }
       }
     },
-    "auth_v1UpdateRequest": {
+    "UpdateRequest": {
       "type": "object",
       "properties": {
         "user": {
-          "$ref": "#/definitions/auth_v1User"
+          "$ref": "#/definitions/User"
         }
       }
     },
-    "auth_v1User": {
+    "User": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string",
           "format": "uint64"
+        },
+        "login": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
         },
         "role": {
           "type": "string"
@@ -207,7 +200,7 @@
           "type": "string"
         },
         "coordinateAddress": {
-          "$ref": "#/definitions/auth_v1Coordinate"
+          "$ref": "#/definitions/Coordinate"
         }
       }
     },

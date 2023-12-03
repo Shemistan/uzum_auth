@@ -15,8 +15,8 @@ func (a *Auth) Create(ctx context.Context, req *pb.Create_Request) (*pb.Create_R
 
 	err = a.AuthService.CreateUser(ctx, &models.CreateUser{
 		AuthUser: models.AuthUser{
-			Login:    req.LoginPassword.Login,
-			Password: req.LoginPassword.Password,
+			Login:    req.User.Login,
+			Password: req.User.Password,
 		},
 		User: a.getModelUser(req.User),
 	})

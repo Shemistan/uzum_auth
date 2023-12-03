@@ -1,6 +1,9 @@
 package models
 
-import "github.com/golang-jwt/jwt"
+import (
+	"github.com/golang-jwt/jwt"
+	"github.com/google/uuid"
+)
 
 type CreateUser struct {
 	AuthUser
@@ -8,6 +11,7 @@ type CreateUser struct {
 }
 
 type User struct {
+	ID                uuid.UUID
 	Role              string
 	Name              string
 	Surname           string
@@ -27,12 +31,11 @@ type Coordinate struct {
 }
 
 type UserInfo struct {
-	Login string
-	Role  string
+	ID   uuid.UUID `json:"id"`
+	Role string    `json:"role"`
 }
 
 type CustomClaims struct {
 	jwt.StandardClaims
-	Login string `json:"username"`
-	Role  string `json:"role"`
+	UserInfo UserInfo `json:"user_info"`
 }

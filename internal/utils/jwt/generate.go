@@ -1,6 +1,7 @@
 package jwt
 
 import (
+	"github.com/google/uuid"
 	"log"
 	"time"
 
@@ -14,16 +15,15 @@ const (
 	refreshTTL = time.Hour * 24 * 365
 )
 
-func GenerateTokens(login, role, secretKey string) (models.Token, error) {
+func GenerateTokens(id  uuid.UUID, role, secretKey string) (models.Token, error) {
 	var res models.Token
 
 	// Генерация Access Token
 	accessClaims := models.CustomClaims{
-		Login: login,
-		Role:  role,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(accessTTL).Unix(), // Срок действия токена
-		},
+	},
+		UserInfo: models.UserInfo{ID: id, Role: role},
 	}
 	accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, accessClaims)
 	accessString, err := accessToken.SignedString([]byte(secretKey))
@@ -34,11 +34,10 @@ func GenerateTokens(login, role, secretKey string) (models.Token, error) {
 
 	// Генерация Refresh Token
 	refreshClaims := models.CustomClaims{
-		Login: login,
-		Role:  role,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(refreshTTL).Unix(), // Срок действия токена
 		},
+		UserInfo: models.UserInfo{ID: id, Role: role},
 	}
 	refreshToken := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshClaims)
 	refreshString, err := refreshToken.SignedString([]byte(secretKey))

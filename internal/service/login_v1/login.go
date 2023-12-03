@@ -11,7 +11,7 @@ import (
 
 type ILoginService interface {
 	Login(ctx context.Context, req *models.AuthUser) (*models.Token, error)
-	Check(ctx context.Context) error
+	GetData(ctx context.Context) (*models.CustomClaims, error)
 }
 
 type serviceLogin struct {
@@ -36,23 +36,20 @@ func (s *serviceLogin) Login(ctx context.Context, req *models.AuthUser) (*models
 		return nil, errors.New("password is not valid")
 	}
 
-	res, err := jwt.GenerateTokens(req.Login, "test", s.TokenSecretKey)
+	user, err := s.storage.GetUser(ctx, req.Login)
+
+	res, err := jwt.GenerateTokens(user.ID, user.Role, s.TokenSecretKey)
 	if err != nil {
 		return nil, err
 	}
 	return &res, nil
 }
 
-func (s *serviceLogin) Check(ctx context.Context) error {
+func (s *serviceLogin) GetData(ctx context.Context) (*models.CustomClaims, error) {
 	token, err := jwt.ExtractTokenFromContext(ctx)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	_, err = jwt.ValidateToken(token, s.TokenSecretKey)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return jwt.ValidateToken(token, s.TokenSecretKey)
 }

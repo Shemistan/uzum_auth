@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-package auth_v1;
-
 //import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 //import "google/protobuf/wrappers.proto";
@@ -42,7 +40,7 @@ service AuthV1 {
 
 message Create {
   message Request{
-    AuthUser login_password = 1;
+    //AuthUser login_password = 1;
     User user = 2;
   }
 
@@ -95,19 +93,16 @@ message GetAllUsers {
   }
 }
 
-message AuthUser {
-  string login = 1 [(validate.rules).string.email = true];
-  string password = 2 [(validate.rules).string = {min_len: 4, max_len: 40}];
-}
-
 message User {
   uint64 id = 1;
-  string role = 3;
-  string name = 4;
-  string surname = 5;
-  string phone = 6;
-  string address = 7;
-  Coordinate coordinate_address = 8;
+  string login = 2;
+  string password = 3;
+  string role = 4;
+  string name = 5;
+  string surname = 6;
+  string phone = 7;
+  string address = 8;
+  Coordinate coordinate_address = 9;
 }
 
 message Coordinate {
